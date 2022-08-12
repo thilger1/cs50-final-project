@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Cart</title>
+{% endblock %}
+
+<body>
+    {% block content %}
+    <h2>Cart</h2>
+    
+    <div class="divider"></div>
+    <div class="container-fluid">
+        <div class="row">
+            {% for data in items %}   
+            <div class="col-sm-4">
+                <img src= {{url_for('static', filename='images/' + data['image'])}} class="img-thumbnail" id="itemImage" />
+                <p class="text-center" style="font-weight:bold">{{data['name']}}</p>
+                <p class="text-center" style="font-weight:bold">{{ usd(data['price']) }}</p>
+            </div>
+            <div class="col-sm-6">
+                <p>{{data['description']}}</p>
+                <form action="/cart" method="post" align="center">
+                    <input name="id" type="hidden" value="{{ data['productID'] }}">
+                    <input type="submit" value="Remove">
+                </form>
+            </div>
+            {% endfor %}
+
+    {% if not empty %}
+        <div class="row">
+            <form action="/checkout" method="get">
+                <input name="id" type="hidden">
+                <input type="submit" value="Check out">
+            </form>
+        </div>
+    {% endif %}
+    </div>
+    {% endblock %}
+    </body>

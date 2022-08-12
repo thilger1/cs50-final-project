@@ -6,25 +6,27 @@
 
 <body>
 {% block content %}
-<h1>Togei Kyoshitsu</h1>
 <h2>Shop</h2>
-<p>Pottery</p>
+<div class="center-block">
+    <h2><a href="/">pottery</a> | <a href="/merch">merch</a></h2>
+</div>
+<div class="divider"></div>
+<div class="container-fluid">
+    <div class="row">
+        {% for image in images %}  
+        
+        <div class='col-sm-4'>
+			<img src= {{url_for('static', filename='images/' + image['image'])}} class='img-thumbnail' id='itemImage' />
+            <p class='text-center' style='font-weight:bold'>{{image['name']}}</p>
+            <p class='text-center' style='font-weight:bold'>{{ usd(image['price']) }}</p>
 
-{% for image in images %}
-	<table>
-		<tr id="productName">
-		    <td>
-		    {{image['name']}}
-		    </td>
-		</tr>
-		<tr id="productImage">
-			<td>
-			<a href="/images/{{image['image1']}}">
-			<img src={{ url_for('static', filename='images/' + image['image1']) }} id="itemImage" />
-			</a>
-			</td>
-        </tr>
-{% endfor %}
-    </table>
+            <form action="/" method="post" type="submit" align="center">
+                <input name="id" type="hidden" value="{{ image['productID'] }}">
+                <input type="submit" value="View">
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
 </body>
