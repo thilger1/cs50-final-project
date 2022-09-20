@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Index</title>
+{% endblock %}
+
+<body>
+{% block content %}
+
+<div class="container-fluid" align="center" style="padding-top: 5%;">
+    <div class="row">
+    {% for data in item %}  
+    
+        <div class="col-sm-4 offset-1">
+			<img src= {{url_for('static', filename='images/' + data['image'])}} class="img-thumbnail" id="itemImage" style="width:80%;height:20vw;object-fit:cover;"/>
+        </div>
+        <div class="col-sm-6">
+            <h2 class="text-center" style="font-weight:bold;padding-bottom: 2%;">{{data['name']}}</h2>
+            <p>{{data['description']}}</p>
+            <h2 style='padding-bottom: 2%;'>{{ usd(data['price']) }}</h2>
+        {% if session["user_id"] != "admin" %}
+            {% if carted %}
+                <p style="color:blue">Added to Cart</p>
+                <form action="/cart" method="POST">
+                    <input name="id" type="hidden" value="{{ data['productID']}}">
+                    <button type="submit" class="btn-secondary" style="padding-left:4%;padding-right:4%;padding-top:2%;padding-bottom:2%;border-radius:40px;"> Remove </button> 
+                </form>
+            {% else %}
+                <form action="/item" method="POST">
+                    <input name="id" type="hidden" value="{{ data['productID'] }}">
+                    <button type="submit" style="padding-left:4%;padding-right:4%;padding-top:2%;padding-bottom:2%;border-radius:40px;">Add to Cart</button>
+                </form>
+            {% endif %}
+        {% elif session["user_id"] == "admin" %}
+                <form action="/item" method="POST">
+                    <input name="id" type="hidden" value="{{ data['productID'] }}">
+                    <button type="submit" style="padding-left:4%;padding-right:4%;padding-top:2%;padding-bottom:2%;border-radius:40px;">Remove from store</button>
+                </form>
+        {% endif %}
+
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
+</body>

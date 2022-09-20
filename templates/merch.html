@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Merch</title>
+{% endblock %}
+
+<body>
+{% block content %}
+<h2>Shop</h2>
+<div class="center-block">
+    <h2><a href="/" style="color:#2F4F4F;text-decoration: none;">pottery</a> | <a href="/merch" style="color:#2F4F4F;text-decoration: none;"><u>merch</u></a></h2>
+</div>
+<div class="divider"></div>
+<div class="container-fluid">
+    <div class="row">
+        {% if session["user_id"] == "admin" %}
+        <div class='col-sm-4'>
+        <h2>+</h2>
+
+        <form action="/newitem" method="post" type="submit" align="center">
+            <input name="id" type="hidden" value="admin">
+            <input type="submit" value="Add New Item">
+        </form>
+
+        </div>
+        {% endif %}
+        {% for item in images %}    
+        <div class="col-sm-4" style="padding-bottom:2%">
+			<center><img style="width:80%;height:20vw;object-fit:cover;" class="img-thumbnail" src={{ url_for('static', filename='images/' + item['image']) }} class="img-thumbnail" id="itemImage" />
+            </center>
+            <p class="text-center" style="font-weight:bold">{{item['name']}}</p>
+            <p class="text-center" style="font-weight:bold">{{ usd(item['price']) }}</p>
+
+            <form action="/merch" method="post" type="submit" align="center">
+                <input name="id" type="hidden" value="{{ item['productID'] }}">
+                <button class="btn-secondary" style="padding-left:4%;padding-right:4%;padding-top:2%;padding-bottom:2%;border-radius:40px;" type="submit"> View </button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+</body>

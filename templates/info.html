@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Info</title>
+{% endblock %}
+
+<body>
+{% block content %}
+
+
+    <div class="container-fluid">  
+        <div class="row">
+            <h2>Order #{{ order }}</h2>
+            <div class="divider"></div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3" align="center">
+                    <h1 style="padding-bottom:5%">Products</h1>
+                    <table>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product['name'] }}</td>
+                    </tr>
+                    {% endfor %}
+                    <td>
+                    {% for tot in total %}
+                        Total Amount: {{ usd(tot['amount']) }}
+                    {% endfor %}
+                    </td>
+                    </table>
+                </div>
+        
+                <div class="col-sm-3" align="center">
+                    <h1 style="padding-bottom:5%">Shipping</h1>
+                    <table>
+                    {% for ship in shipping %}
+                    <tr><td>{{ ship['first'] }} {{ ship['last'] }}</td></tr>
+                    <tr><td>{{ ship['address'] }}</td></tr>
+                    <tr><td>{{ ship['city'] }}, {{ ship['state'] }} {{ ship['zip'] }}</td></tr>
+                    {% endfor %}
+                    </table>
+                </div>
+        </div>
+    </div>
+{% endblock %}
+    
+</body>

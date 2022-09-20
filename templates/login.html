@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Log In</title>
+{% endblock %}
+
+<body>
+{% block content %}
+
+<div class="container-fluid" align="center">  
+    <div class="col-sm-4">
+		<h1>Log In</h1>
+        <form action="/login" method="post" style="padding-top:5%;">
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="email" name="email" placeholder="Email" type="text">
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+            </div>
+            <button class="btn-secondary" style="padding-left:4%;padding-right:4%;padding-top:2%;padding-bottom:2%;border-radius:40px;" type="submit">Log In</button>
+        </form>
+    </div>
+    <div class"col-sm-4">
+        <p>Don't have an account yet? Register <a href="/register">here</a></p>
+    </div>
+</div>
+</div>
+{% endblock %}
+</body>

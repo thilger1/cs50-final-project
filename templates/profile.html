@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Profile</title>
+{% endblock %}
+
+<body>
+{% block content %}
+
+<div class="container-fluid" align="center">  
+	<h1>Profile</h1>
+    <div class="divider container-fluid"></div>
+    {% if not admin %}
+        <h1>Orders</h1>
+        <main class="container py-5 text-center">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="text-start">Date Ordered</th>
+                    <th class="text-start">Item</th>
+                    <th class="text-start">Cost</th>
+                </tr>
+                </thead>
+                {% for info in products %}
+                    <tr>
+                    <td class="text-start">{{ info["date"] }}</td>
+                    <td class="text-start">{{ info["name"] }}</td>
+                    <td class="text-start">{{ usd(info["price"]) }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+    {% endif %}
+    <form action="/logout" class="inline">
+        <button type="submit" style="padding-left:2%;padding-right:2%;padding-top:1%;padding-bottom:1%;border-radius:40px;">Log Out</button>
+    </form>
+    </div>
+    {% if admin %}
+    <div class="divider container-fluid"></div>
+    <div class="row">
+        {% for stock in outStock %}  
+        
+        <div class='col-sm-4' class="panel" style="padding-bottom: 2%;">
+            <div class="row">
+
+			<center><img class='img-thumbnail' style="width:80%;height:20vw;object-fit:cover;" src= {{url_for('static', filename='images/' + stock['image'])}} /><center>
+            
+            </div>
+            <div class="row">
+                <p class='text-center' style='font-weight:bold'>{{stock['name']}}</p>
+                <p class='text-center' style='font-weight:bold'>{{ usd(stock['price']) }}</p>
+                <form action="/profile" method="post" type="submit" align="center">
+                    <input name="id" type="hidden" value="{{ stock['productID'] }}">
+                    <button class="btn-secondary" style="padding-left:4%;padding-right:4%;padding-top:2%;padding-bottom:2%;border-radius:40px;" type="submit"> Re-Add to Store </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+</body>

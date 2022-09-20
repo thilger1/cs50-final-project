@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Checkout</title>
+{% endblock %}
+
+<body>
+{% block content %}
+
+ <!-- Shipping: Email, First, Last, Address, City, State, Zip-->
+ <!-- Credit or Debit Number, Expiration, CVV, PayPal-->
+<div class="container-fluid" align="center">
+    <h1>Shipping</h1>  
+    <div class="col-sm-4">
+        <form action="/checkout" method="POST" style="padding-top:5%;">
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="email" name="email" placeholder="Email" type="text" required>
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="first" name="first" placeholder="First Name" type="text" required>
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="last" name="last" placeholder="Last Name" type="text" required>
+            </div>  
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="address" name="address" placeholder="Address" type="text" required>
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="city" name="city" placeholder="City/Town" type="text" required>
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="state" name="state" placeholder="State" type="text" required>
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="zip" name="zip" placeholder="Zip Code" min="0" maxlength="6" type="number" required>
+            </div>
+        <h1>Payment</h1>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="card" name="card" placeholder="Credit or Debit" type="number" min="0" required>
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="expiration" name="expiration" placeholder="Expiration" type="number" required>
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="cvv" name="cvv" placeholder="CVV" type="number" required>
+            </div>
+            <button class="btn-secondary" style="margin-bottom: 4%;" type="submit">Place Order</button>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}
+</body>

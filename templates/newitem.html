@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>New Item</title>
+{% endblock %}
+
+<body>
+{% block content %}
+
+<div class="container-fluid" align="center">
+    <div class="row">
+    
+        <h1>New Item</h1> 
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <form action='/newitem' method='POST' enctype="multipart/form-data" style='padding-top:5%;' >
+                <input type=file name=file>
+        </div>
+        <div class="col-sm-4">
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="name" name="name" placeholder="Name" type="text">
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="price" name="price" placeholder="Price" type="text">
+            </div>
+
+            <div class="mb-3">
+            <input type="radio" id="pottery" name="type" value="pottery">
+            <label for="pottery" style="margin-right:1%;">Pottery</label>
+            <input type="radio" id="merch" name="type" value="merch">
+            <label for="merch">Merch</label>
+            </div>
+
+            <div class="mb-3">
+                <textarea placeholder="Description" rows='4' autocomplete="off" autofocus class="form-control mx-auto w-auto" id="description" name="description" type="text"></textarea>
+            </div>
+                <input type=submit value='Post'>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+{% endblock %}
+</body>

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Orders</title>
+{% endblock %}
+
+<body>
+{% block content %}
+<!-- Order #'s with drop down option to check items included'-->
+<!-- total amount and button to fulfill order-->
+    <div class="container-fluid">  
+        <div class="col-sm-4">
+		    <h1>Orders</h1>
+        </div>
+    </div>
+<h2>Unfilled orders</h2>
+<main class="container py-5 text-center">
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="text-start">Date Ordered</th>
+            <th class="text-start">Order #</th>
+            <th class="text-start">Info</th>
+            <th class="text-start">Filled?</th>
+        </tr>
+        </thead>
+        {% for info in unfilled %}
+            <tr>
+                <td class="text-start">{{ info["date"] }}</td>
+                <td class="text-start">{{ info["id"] }}</td>
+                <td class="text-start">
+                    <form action="/info" method="POST">
+                        <input name="order" type="hidden" value="{{ info['id'] }}">
+                        <button type="submit">Info</button>
+                    </form>
+                <td class="text-start">
+                    <form action="/orders" method="POST">
+                        <input name="id" type="hidden" value="{{ info['id'] }}">
+                        <button type="submit" >Fill</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+              
+<div class=divider></div>
+<h2>Filled orders</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-start">Date Ordered</th>
+                <th class="text-start">Order #</th>
+                <th class="text-start">Info</th>
+                <th class="text-start">Filled?</th>
+            </tr>
+        </thead>
+    {% for info in filled %}
+        <tr>
+            <td class="text-start">{{ info["date"] }}</td>
+            <td class="text-start">{{ info["id"] }}</td>
+            <td class="text-start"><form action="/info" method="POST">
+                <input name="order" type="hidden" value="{{ info['id'] }}">
+                <button type="submit">Info</button>
+            </form></td>
+            <td class="text-start">
+                <form action="/orders" method="POST">
+                <input name="id" type="hidden" value="{{ info['id'] }}">
+                <button type="submit" >Unfill</button>
+            </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+</main>
+
+{% endblock %}
+    
+</body>
