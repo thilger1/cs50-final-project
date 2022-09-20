@@ -9,31 +9,36 @@
     <h2>Cart</h2>
     
     <div class="divider"></div>
-    <div class="container-fluid">
         <div class="row">
-            {% for data in items %}   
-            <div class="col-sm-4">
-                <img src= {{url_for('static', filename='images/' + data['image'])}} class="img-thumbnail" id="itemImage" />
-                <p class="text-center" style="font-weight:bold">{{data['name']}}</p>
-                <p class="text-center" style="font-weight:bold">{{ usd(data['price']) }}</p>
-            </div>
-            <div class="col-sm-6">
-                <p>{{data['description']}}</p>
-                <form action="/cart" method="post" align="center">
-                    <input name="id" type="hidden" value="{{ data['productID'] }}">
-                    <input type="submit" value="Remove">
-                </form>
-            </div>
-            {% endfor %}
+            <div class="col-sm-6" style="padding:3%">
+        {% for data in items %}   
+                <div class="row">
+                    <center><img src= {{url_for('static', filename='images/' + data['image'])}} class="img-thumbnail" style="width:80%;height:30vw;object-fit:cover;" /></center>
+                    <p class="text-center" style="font-weight:bold">{{data['name']}}</p>
+                    <p class="text-center" style="font-weight:bold">{{ usd(data['price']) }}</p>
 
-    {% if not empty %}
-        <div class="row">
-            <form action="/checkout" method="get">
-                <input name="id" type="hidden">
-                <input type="submit" value="Check out">
-            </form>
+                    <form action="/cart" method="post" type="submit" align="center" style="margin-bottom:2%;">
+                        <input name="id" type="hidden" value="{{ data['productID'] }}">
+                        <button class="btn-secondary" style="padding-left:4%;padding-right:4%;padding-top:2%;padding-bottom:2%;border-radius:40px;" type="submit"> Remove </button>
+                    </form>
+                </div>
+            {% endfor %}
         </div>
-    {% endif %}
+        <div class="col-sm-6" style="padding:3%">
+        {% if not empty %}
+            <div class="row">
+                <center>
+                <h1>Total</h1>
+                <h2>{{ usd(total) }}</h2>
+                <form style="padding-top:4%" action="/checkout" method="get">
+                    <input name="id" type="hidden">
+                    <button class="btn-secondary" style="padding-left:4%;padding-right:4%;padding-top:2%;padding-bottom:2%;border-radius:40px;margin-bottom:2%;" type="submit" value="Check out">Check Out</button>
+                </form>
+                </center>
+            </div>
+        {% endif %}
+
+
     </div>
     {% endblock %}
     </body>

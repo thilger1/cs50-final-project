@@ -8,22 +8,40 @@
 {% block content %}
 <h2>Shop</h2>
 <div class="center-block">
-    <h2><a href="/">pottery</a> | <a href="/merch">merch</a></h2>
+    <h2><a href="/" style="color:#2F4F4F;text-decoration: none;"><u>pottery</u></a> | <a href="/merch" style="color:#2F4F4F;text-decoration: none;">merch</a></h2>
 </div>
 <div class="divider"></div>
 <div class="container-fluid">
     <div class="row">
+        {% if session["user_id"] == "admin" %}
+        <div class='col-sm-4' class="panel" style="padding-bottom: 2%;">
+            <div style="padding-top: 10%;">
+                <center>
+                <h2>+</h2>
+                <form action="/newitem" method="GET" type="submit">
+                <input name="id" type="hidden" value="admin">
+                <input type="submit" value="Add New Item">
+                </form>
+                </center>
+            </div>
+        </div>
+        {% endif %}
         {% for image in images %}  
         
-        <div class='col-sm-4'>
-			<img src= {{url_for('static', filename='images/' + image['image'])}} class='img-thumbnail' id='itemImage' />
-            <p class='text-center' style='font-weight:bold'>{{image['name']}}</p>
-            <p class='text-center' style='font-weight:bold'>{{ usd(image['price']) }}</p>
+        <div class='col-sm-4' class="panel" style="padding-bottom: 2%;">
+            <div class="row">
 
-            <form action="/" method="post" type="submit" align="center">
-                <input name="id" type="hidden" value="{{ image['productID'] }}">
-                <input type="submit" value="View">
-            </form>
+			<center><img class='img-thumbnail' style="width:80%;height:20vw;object-fit:cover;" src= {{url_for('static', filename='images/' + image['image'])}} /><center>
+            
+            </div>
+            <div class="row">
+                <p class='text-center' style='font-weight:bold'>{{image['name']}}</p>
+                <p class='text-center' style='font-weight:bold'>{{ usd(image['price']) }}</p>
+                <form action="/" method="post" type="submit" align="center">
+                    <input name="id" type="hidden" value="{{ image['productID'] }}">
+                    <button class="btn-secondary" style="padding-left:4%;padding-right:4%;padding-top:2%;padding-bottom:2%;border-radius:40px;" type="submit"> View </button>
+                </form>
+            </div>
         </div>
         {% endfor %}
     </div>
